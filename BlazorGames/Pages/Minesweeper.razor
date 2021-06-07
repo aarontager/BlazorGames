@@ -7,8 +7,8 @@
 <h3>New Game:</h3>
 
 <h5 @onclick="@(() => StartGame(10, 15))">Easy</h5>
-<h5 @onclick="@(() => StartGame(20, 25))">Medium</h5>
-<h5 @onclick="@(() => StartGame(25, 40))">Hard</h5>
+<h5 @onclick="@(() => StartGame(15, 30))">Medium</h5>
+<h5 @onclick="@(() => StartGame(20, 50))">Hard</h5>
 
 @if (_model != null)
 {
@@ -22,19 +22,19 @@
     {
         <h1>You won!</h1>
     }
-    <div style="align-content: center; padding: 50px; width: 500px; height: 500px;">
+    <div>
         <table table-layout="fixed" width="500px" height="500px">
-                @for (int i = 0; i < _model.Size; i++)
+                @for (int i = 0; i < _size; i++)
                 {
-                    <tr height="@(500 / _model.Size)px">
-                        @for (int j = 0; j < _model.Size; j++)
+                    <tr height="@(500 / _size)px">
+                        @for (int j = 0; j < _size; j++)
                         {
                             int row = i, col = j;
-                            <td style="text-align: center; border: 1px solid black;"
-                                width="@(500 / _model.Size)px"
-                                @onclick="@(() => _model.ClickTile(row, col))"
-                                @oncontextmenu:preventDefault @oncontextmenu="(() => _model.Flag(row, col))">
-                                @_model.GetTile(row, col)
+                            <td class="minesweeper"
+                                width="@(500 / _size)px"
+                                @onclick="@(e => Click(row, col))"
+                                @oncontextmenu:preventDefault @oncontextmenu="(e => Flag(row, col))">
+                                @GetTile(row, col)
                             </td>
                         }
                     </tr>

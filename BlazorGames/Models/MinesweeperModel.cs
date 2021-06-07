@@ -157,7 +157,10 @@ namespace BlazorGames.Models
             foreach (Tile tile in _board)
             {
                 if (tile.IsMine)
+                {
                     tile.IsRevealed = true;
+                    tile.IsFlagged = false;
+                }
             }
         }
 
@@ -169,6 +172,7 @@ namespace BlazorGames.Models
                     return;
             }
 
+            RevealAllMines();
             IsWon = true;
         }
     }
