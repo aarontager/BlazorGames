@@ -1,0 +1,44 @@
+﻿@page "/Minesweeper"
+
+<h2>Minesweeper</h2>
+
+<br />
+
+<h3>New Game:</h3>
+
+<h5 @onclick="@(() => StartGame(10, 15))">Easy</h5>
+<h5 @onclick="@(() => StartGame(20, 25))">Medium</h5>
+<h5 @onclick="@(() => StartGame(25, 40))">Hard</h5>
+
+@if (_model != null)
+{
+
+    @if (_model.IsLost)
+    {
+        <h1>You lost!</h1>
+    }
+
+    else if (_model.IsWon)
+    {
+        <h1>You won!</h1>
+    }
+    <div style="align-content: center; padding: 50px; width: 500px; height: 500px;">
+        <table table-layout="fixed" width="500px" height="500px">
+                @for (int i = 0; i < _model.Size; i++)
+                {
+                    <tr height="@(500 / _model.Size)px">
+                        @for (int j = 0; j < _model.Size; j++)
+                        {
+                            int row = i, col = j;
+                            <td style="text-align: center; border: 1px solid black;"
+                                width="@(500 / _model.Size)px"
+                                @onclick="@(() => _model.ClickTile(row, col))"
+                                @oncontextmenu:preventDefault @oncontextmenu="(() => _model.Flag(row, col))">
+                                @_model.GetTile(row, col)
+                            </td>
+                        }
+                    </tr>
+                }
+        </table>
+    </div>
+}
